@@ -1,0 +1,353 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Federated Learning Playground</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons" rel="stylesheet" type="text/css">
+    <script type="module" crossorigin src="/federated-playground/assets/index-CtcMK0WT.js"></script>
+    <link rel="stylesheet" crossorigin href="/federated-playground/assets/index-B5T9olPQ.css">
+  </head>
+
+  <body>
+    <!-- GitHub link -->
+    <a class="github-link" href="https://github.com/ernyo/ernyo.github.io" title="Source on GitHub" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60.5 60.5" width="60" height="60">
+        <polygon class="bg" points="60.5,60.5 0,0 60.5,0 "/>
+        <path class="icon" d="M43.1,5.8c-6.6,0-12,5.4-12,12c0,5.3,3.4,9.8,8.2,11.4c0.6,0.1,0.8-0.3,0.8-0.6c0-0.3,0-1,0-2c-3.3,0.7-4-1.6-4-1.6c-0.5-1.4-1.3-1.8-1.3-1.8c-1.1-0.7,0.1-0.7,0.1-0.7c1.2,0.1,1.8,1.2,1.8,1.2c1.1,1.8,2.8,1.3,3.5,1c0.1-0.8,0.4-1.3,0.8-1.6c-2.7-0.3-5.5-1.3-5.5-5.9c0-1.3,0.5-2.4,1.2-3.2c-0.1-0.3-0.5-1.5,0.1-3.2c0,0,1-0.3,3.3,1.2c1-0.3,2-0.4,3-0.4c1,0,2,0.1,3,0.4c2.3-1.6,3.3-1.2,3.3-1.2c0.7,1.7,0.2,2.9,0.1,3.2c0.8,0.8,1.2,1.9,1.2,3.2c0,4.6-2.8,5.6-5.5,5.9c0.4,0.4,0.8,1.1,0.8,2.2c0,1.6,0,2.9,0,3.3c0,0.3,0.2,0.7,0.8,0.6c4.8-1.6,8.2-6.1,8.2-11.4C55.1,11.2,49.7,5.8,43.1,5.8z"/>
+      </svg>
+    </a>
+
+    <!-- Header -->
+    <header>
+      <h1 class="l--page">
+        <b>Federated Learning Playground</b>
+        <br>
+        For Multi-Task Learning
+      </h1>
+    </header>
+
+    <!-- Top Controls -->
+    <div id="top-controls">
+      <div class="container l--page">
+
+        <div id="top-container">
+          <div>
+            <div id="left-top-container">
+              <div class="timeline-controls">
+                <button class="mdl-button mdl-js-button mdl-button--icon ui-resetButton" id="reset-button" title="Reset experiment">
+                  <i class="material-icons">replay</i>
+                </button>
+                <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored ui-playButton" id="play-pause-button" title="Run/Pause">
+                  <i class="material-icons">play_arrow</i>
+                  <i class="material-icons">pause</i>
+                </button>
+                <button class="mdl-button mdl-js-button mdl-button--icon ui-stepButton global" id="next-step-button" title="Step">
+                  <i class="material-icons">skip_next</i>
+                </button>
+              </div>
+
+              <div class="control">
+                <span class="label">Round</span>
+                <span class="value" id="iter-number"></span>
+              </div>
+            </div>
+
+            <div id="right-top-container">
+              <button id="experiment-button" class="basic-button">Experiment mode</button>
+            </div>
+          </div>
+
+          <div id="right-container">
+            
+            <!-- Client controls -->
+            <div class="control">
+              <label for="learningRate">Learning rate</label>
+              <div class="select">
+                <select id="learningRate">
+                  <option value="0.00001">0.00001</option>
+                  <option value="0.00003">0.00003</option>
+                  <option value="0.0001">0.0001</option>
+                  <option value="0.001">0.001</option>
+                  <option value="0.003">0.003</option>
+                  <option value="0.01">0.01</option>
+                  <option value="0.03">0.03</option>
+                  <option value="0.1">0.1</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="control">
+              <label for="activations">Activation</label>
+              <div class="select">
+                <select id="activations">
+                  <option value="relu">ReLU</option>
+                  <option value="tanh">Tanh</option>
+                  <option value="sigmoid">Sigmoid</option>
+                  <option value="linear">Linear</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="control">
+              <label for="regularizations">Regularization</label>
+              <div class="select">
+                <select id="regularizations">
+                  <option value="none">None</option>
+                  <option value="l1">L1</option>
+                  <option value="l2">L2</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="control">
+              <label for="regularRate">Regularization rate</label>
+              <div class="select">
+                <select id="regularRate">
+                  <option value="0">0</option>
+                  <option value="0.00001">0.00001</option>
+                  <option value="0.00003">0.00003</option>
+                  <option value="0.0001">0.0001</option>
+                  <option value="0.0003">0.0003</option>
+                  <option value="0.001">0.001</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Server controls -->
+            <div class="control">
+              <label for="epochs-per-client">Epochs per client</label>
+              <div class="select">
+                <select id="epochs-per-client">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="control global">
+              <label for="encoder-agg">Encoder aggregation</label>
+              <div class="select">
+                <select id="encoder-agg">
+                  <option value="none">None</option>
+                  <option value="fedavg">FedAvg</option>
+                  <option value="conflict_averse">Conflict Averse</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="control global">
+              <label for="decoder-agg">Decoder aggregation</label>
+              <div class="select">
+                <select id="decoder-agg">
+                  <option value="none">None</option>
+                  <option value="fedavg">FedAvg</option>
+                  <option value="cross_attention">Cross Attention</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="control global">
+              <label for="cac">CA C</label>
+              <div class="select">
+                <select id="cac">
+                  <option value="0">0</option>
+                  <option value="0.1">0.1</option>
+                  <option value="0.2">0.2</option>
+                  <option value="0.3">0.3</option>
+                  <option value="0.4">0.4</option>
+                  <option value="0.5">0.5</option>
+                  <option value="0.6">0.6</option>
+                  <option value="0.7">0.7</option>
+                  <option value="0.8">0.8</option>
+                  <option value="0.9">0.9</option>
+                  <option value="1">1</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="control global" id="rounds-control">
+              <label for="rounds">Rounds</label>
+              <div class="select">
+                <select id="rounds">
+                  <option value="1">1</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="40">40</option>
+                  <option value="50">50</option>
+                  <option value="60">60</option>
+                  <option value="70">70</option>
+                  <option value="80">80</option>
+                  <option value="90">90</option>
+                  <option value="100">100</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div id="bottom-container">
+          <div id="experiment-view" style="display: none;">
+            <h4>
+              <div class="ui-numTasks">
+                <button id="add-experiment" class="mdl-button mdl-js-button mdl-button--icon">
+                  <i class="material-icons">add</i>
+                </button>
+                <button id="remove-experiment" class="mdl-button mdl-js-button mdl-button--icon">
+                  <i class="material-icons">remove</i>
+                </button>
+              </div>
+              <span id="num-experiments" class="number"></span>
+              <span id="experiment-label" class="heading"></span>
+            </h4>
+            <div id="experiments"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="server-view" class="view">
+      <div class="container l--page">
+        <!-- Client -->
+        <div id="client-stats" class="column">
+          <h4>
+            <div class="ui-numTasks">
+              <button id="add-clients" class="mdl-button mdl-js-button mdl-button--icon">
+                <i class="material-icons">add</i>
+              </button>
+              <button id="remove-clients" class="mdl-button mdl-js-button mdl-button--icon">
+                <i class="material-icons">remove</i>
+              </button>
+            </div>
+            <span id="num-clients" class="number"></span>
+            <span id="clients-label" class="heading"></span>
+          </h4>
+          <div id="clients"></div>
+        </div>
+
+        <!-- Server -->
+        <div id="server-stats" class="column">
+          <h4>Server</h4>
+          <div id="server-metrics" class="metrics-row">
+            <div class="table">
+
+              <div class="server-chart metrics">
+                <div class="output-stats">
+                  <div class="tooltip">
+                    &#63;
+                    <div class="tooltiptext">
+                      <div class="tip-title">Mean Delta Norm</div>
+                      <span>The magnitude of the aggregated/global update direction.</span>
+                      <ul>
+                        <li><b>Large</b>: clients agree enough that the average produces a strong step.</li>
+                        <li><b>Small</b>: updates cancel out (client conflict) or everyone's updates are tiny.</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <span>Mean delta norm</span>
+
+                  <div class="value">—</div>
+                </div>
+                <div class="linechart" data-metric="meanDeltaNorm"></div>
+              </div>
+
+              <div class="server-chart metrics">
+                <div class="output-stats">
+                  <div class="tooltip">
+                    &#63;
+                    <div class="tooltiptext">
+                      <div class="tip-title">Mean Client Delta Norm</div>
+                      <span>The average strength of local learning per client (how big each client's update is).</span>
+                      <ul>
+                        <li><b>Large</b>: clients are making big changes (early training, high LR, hard data, or unstable).</li>
+                        <li><b>Small</b>: clients are near convergence or learning slowly.</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <span>Mean client delta norm</span>
+
+                  <div class="value">—</div>
+                </div>
+                <div class="linechart" data-metric="meanClientDeltaNorm"></div>
+              </div>
+
+              <div class="server-chart metrics">
+                <div class="output-stats">
+                  <div class="tooltip">
+                    &#63;
+                    <div class="tooltiptext">
+                      <div class="tip-title">Mean Distance to Mean</div>
+                      <span>The average distance of each client's update from the mean update.</span>
+                      <ul>
+                        <li><b>Large</b>: clients are pulling in different directions (non-IID, different tasks, different data, noisy training).</li>
+                        <li><b>Small</b>: clients' updates are similar (IID-ish or homogeneous clients).</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <span>Mean distance to mean</span>
+
+                  <div class="value">—</div>
+                </div>
+                <div class="linechart" data-metric="meanDistToMean"></div>
+              </div>
+              
+              <div class="server-chart metrics">
+                <div class="output-stats">
+                  <div class="tooltip">
+                    &#63; 
+                    <div class="tooltiptext">
+                      <div class="tip-title">Mean Cosine Similarity</div>
+                      <span>The average alignment of client update directions.</span>
+                      <ul>
+                        <li><b>+1:</b> perfectly aligned</li>
+                        <li><b>0:</b> orthogonal (unrelated)</li>
+                        <li><b>-1:</b> opposite directions (strong conflict)</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <span>Mean cosine similarity</span>
+
+                  <div class="value">—</div>
+                </div>
+                <div class="linechart" data-metric="meanCosine"></div>
+              </div>
+
+              <div class="server-chart metrics">
+                <div class="output-stats">
+                  <div class="tooltip">
+                    &#63; 
+                    <div class="tooltiptext">
+                      <div class="tip-title">Fraction of Negative Cosines</div>
+                      <span>The fraction of client pairs whose updates are in conflict (pointing in opposite directions).</span>
+                      <ul>
+                        <li><b>0.0</b>: no pairwise conflicts (good).</li>
+                        <li><b>0.2-0.5</b>: substantial conflicts (typical under strong non-IID).</li>
+                        <li><b>0.5-1.0</b>: most pairs in conflict (severe non-IID or instability).</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <span>Fraction of negative cosines</span>
+
+                  <div class="value">—</div>
+                </div>
+                <div class="linechart" data-metric="fracNegativeCosine"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div id="main-container"></div>
+
+  </body>
+</html>
