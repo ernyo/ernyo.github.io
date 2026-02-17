@@ -368,50 +368,6 @@ function updateUI() {
 
 
 function bindActiveClientGUI() {
-  // let activationDropdown = activeView.select("#activations").on("change", async function() {
-  //   const input = this as HTMLInputElement;
-  //   // for (const c of clients) {
-  //   //   c.state.model.activation = input.value as Activations;
-  //   // }
-  //   activeClient.state.model.activation = input.value as Activations;
-  //   userHasInteracted = true;
-  //   await reset();
-  // });
-  // activationDropdown.property("value", activeClient.state.model.activation);
-
-  // let learningRate = activeView.select("#learningRate").on("change", async function() {
-  //   const input = this as HTMLInputElement;
-  //   // for (const c of clients) {
-  //   //   c.state.model.learningRate = +input.value;
-  //   // }
-  //   activeClient.state.model.learningRate = +input.value;
-  //   userHasInteracted = true;
-  //   await reset();
-  // });
-  // learningRate.property("value", activeClient.state.model.learningRate);
-
-  // let regularDropdown = activeView.select("#regularizations").on("change", async function() {
-  //   const input = this as HTMLInputElement;
-  //   // for (const c of clients) {
-  //   //   c.state.model.regularization = input.value as Regularizations;
-  //   // }
-  //   activeClient.state.model.regularization = input.value as Regularizations;
-  //   userHasInteracted = true;
-  //   await reset();
-  // });
-  // regularDropdown.property("value", activeClient.state.model.regularization);
-
-  // let regularRate = activeView.select("#regularRate").on("change",  async function() {
-  //   const input = this as HTMLInputElement;
-  //   // for (const c of clients) {
-  //   //   c.state.model.regularizationRate = +input.value;
-  //   // }
-  //   activeClient.state.model.regularizationRate = +input.value;
-  //   userHasInteracted = true;
-  //   await reset();
-  // });
-  // regularRate.property("value", activeClient.state.model.regularizationRate);
-
   // per client config
   activeView.select("#add-tasks").on("click", async () => {
     const enabledCount = activeClient.state.model.taskConfig.filter(task => task.enabled).length;
